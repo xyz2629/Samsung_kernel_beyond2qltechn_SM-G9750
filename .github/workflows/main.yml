@@ -62,7 +62,7 @@ jobs:
        git clone -b main https://github.com/tiann/KernelSU.git KernelSU
        ln -sf "$GKI_ROOT/KernelSU/kernel" "$DRIVER_DIR/kernelsu"
        sed -i '$a\obj-y += kernelsu/' "$DRIVER_MAKEFILE"
-       make $KERNEL_CMDLINE beyond2qlte_chn_open_defconfig CC="ccache clang"
+       make $KERNEL_CMDLINE afaneh_beyond2qlte_defconfig CC="ccache clang"
        make $KERNEL_CMDLINE CC="ccache clang" -j$(nproc --all)
        cp out/arch/arm64/boot/Image.gz AnyKernel3
 
@@ -72,9 +72,9 @@ jobs:
         name: kernel_beyond2qlte_kernelsu-oneui-3.1-${{ steps.get_time.outputs.TIME }}
         path: "AnyKernel3/*"
 
-    - name: Build LXC-Kernel-SU
+    - name: Build 2-Kernel-SU
       run: |
-        git clone -b android-11-lxc https://github.com/tomxi1997/android_kernel_samsung_sm8150.git lxc --depth=1
+        git clone -b master https://github.com/xyz2629/Samsung_kernel_beyond2qltechn_SM-G9750.git lxc --depth=1
         export ARCH=arm64
         export SUBARCH=arm64
         export PATH=$(pwd)/clang-aosp/bin:$(pwd)/aarch64-4.9/bin:$(pwd)/armhf-4.9/bin:$PATH
@@ -85,7 +85,7 @@ jobs:
         git clone -b main https://github.com/tiann/KernelSU.git KernelSU
         ln -sf "$GKI_ROOT/KernelSU/kernel" "$DRIVER_DIR/kernelsu"
         sed -i '$a\obj-y += kernelsu/' "$DRIVER_MAKEFILE"
-        make $KERNEL_CMDLINE s10_kernelsu_lxc_hid_defconfig CC="ccache clang"
+        make $KERNEL_CMDLINE s10_kernelsu_defconfig CC="ccache clang"
         make $KERNEL_CMDLINE CC="ccache clang" -j$(nproc --all)
         rm -rf ../AnyKernel3/Image.gz
         cp out/arch/arm64/boot/Image.gz ../AnyKernel3
